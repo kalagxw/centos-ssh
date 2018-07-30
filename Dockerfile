@@ -1,10 +1,7 @@
 # =============================================================================
-# jdeathe/centos-ssh
-#
-# CentOS-7 7.4.1708 x86_64 - SCL/EPEL/IUS Repos. / Supervisor / OpenSSH.
 # 
 # =============================================================================
-FROM centos:7.4.1708
+FROM centos
 
 # -----------------------------------------------------------------------------
 # Base Install + Import the RPM GPG keys for Repositories
@@ -143,47 +140,13 @@ ENV SSH_AUTHORIZED_KEYS="" \
 	SSH_CHROOT_DIRECTORY="%h" \
 	SSH_INHERIT_ENVIRONMENT=false \
 	SSH_SUDO="ALL=(ALL) ALL" \
-	SSH_USER="app-admin" \
+	SSH_USER="kalagxw" \
 	SSH_USER_FORCE_SFTP=false \
 	SSH_USER_HOME="/home/%u" \
 	SSH_USER_ID="500:500" \
 	SSH_USER_PASSWORD="" \
 	SSH_USER_PASSWORD_HASHED=false \
 	SSH_USER_SHELL="/bin/bash"
-
-# -----------------------------------------------------------------------------
-# Set image metadata
-# -----------------------------------------------------------------------------
-ARG RELEASE_VERSION="2.3.2"
-LABEL \
-	maintainer="James Deathe <james.deathe@gmail.com>" \
-	install="docker run \
---rm \
---privileged \
---volume /:/media/root \
-jdeathe/centos-ssh:${RELEASE_VERSION} \
-/usr/sbin/scmi install \
---chroot=/media/root \
---name=\${NAME} \
---tag=${RELEASE_VERSION} \
---setopt='--volume {{NAME}}.config-ssh:/etc/ssh'" \
-	uninstall="docker run \
---rm \
---privileged \
---volume /:/media/root \
-jdeathe/centos-ssh:${RELEASE_VERSION} \
-/usr/sbin/scmi uninstall \
---chroot=/media/root \
---name=\${NAME} \
---tag=${RELEASE_VERSION} \
---setopt='--volume {{NAME}}.config-ssh:/etc/ssh'" \
-	org.deathe.name="centos-ssh" \
-	org.deathe.version="${RELEASE_VERSION}" \
-	org.deathe.release="jdeathe/centos-ssh:${RELEASE_VERSION}" \
-	org.deathe.license="MIT" \
-	org.deathe.vendor="jdeathe" \
-	org.deathe.url="https://github.com/jdeathe/centos-ssh" \
-	org.deathe.description="CentOS-7 7.4.1708 x86_64 - SCL, EPEL and IUS Repositories / Supervisor / OpenSSH."
 
 HEALTHCHECK \
 	--interval=0.5s \
